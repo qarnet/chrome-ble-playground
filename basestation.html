@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base Station — BLE Playground</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Scanner</a>
+    <a href="basestation.html" class="active">Base Station</a>
+  </nav>
+
+  <h1>Base Station</h1>
+  <p id="status">Disconnected</p>
+
+  <div id="error"></div>
+
+  <div id="disconnected-view">
+    <button id="connect-btn">Connect to Base Station</button>
+  </div>
+
+  <div id="connected-view" hidden>
+    <div class="device-card">
+      <div class="device-name" id="device-name"></div>
+      <div class="power-state-row">
+        <span class="label">Power state</span>
+        <span id="power-badge" class="badge">Unknown</span>
+      </div>
+    </div>
+
+    <div class="action-grid">
+      <button class="action-btn" id="btn-on">Power On</button>
+      <button class="action-btn" id="btn-standby">Standby</button>
+      <button class="action-btn" id="btn-sleep">Sleep</button>
+      <button class="action-btn" id="btn-identify">Identify</button>
+    </div>
+
+    <button class="disconnect-btn" id="disconnect-btn">Disconnect</button>
+  </div>
+
+  <script src="basestation.js"></script>
+</body>
+</html>
