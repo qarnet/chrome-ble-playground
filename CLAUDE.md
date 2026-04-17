@@ -1,6 +1,6 @@
 # chrome-ble-playground
 
-A minimal Web Bluetooth playground for scanning nearby BLE devices from Chrome on Android.
+A Web Bluetooth playground for scanning BLE devices and controlling SteamVR Lighthouse V2 base stations from Chrome.
 
 ## Live URL
 https://chrome-ble.karnetvr.com/
@@ -9,9 +9,11 @@ https://chrome-ble.karnetvr.com/
 Plain HTML/CSS/JS — no build tools, no framework, no npm.
 
 ## File Structure
-- `index.html` — markup only
-- `style.css` — all styles
-- `app.js` — all Web Bluetooth logic
+- `index.html` — BLE scanner page
+- `basestation.html` — SteamVR base station control page
+- `style.css` — all styles (shared across pages)
+- `app.js` — BLE scanner logic
+- `basestation.js` — base station connection and power control logic
 
 ## Deployment
 Hosted via GitHub Pages (custom domain: `chrome-ble.karnetvr.com`, HTTPS enforced).
@@ -24,15 +26,24 @@ git push
 ```
 
 ## Web Bluetooth Notes
-- Requires a secure context (HTTPS) — the API is unavailable on `http://` or `file://`
-- Only works in Chrome (desktop and Android); not supported in Firefox or Safari
+- Requires a secure context (HTTPS) — unavailable on `http://` or `file://`
+- Supported in Chrome on Android and Chrome on desktop (Windows, Mac, Linux)
+- Not supported in Firefox or Safari
 - Android Chrome requires location permission for BLE scanning (OS requirement)
-- `navigator.bluetooth.requestDevice()` opens the browser's native device picker — the page does not get a raw scan list
-- `acceptAllDevices: true` is used to show all nearby BLE devices
-- Discovered devices accumulate across multiple scan taps (stored in a `Map` keyed by `device.id`)
-- `device.id` is an opaque, origin-scoped identifier — not the real MAC address
+- Linux desktop requires BlueZ 5.40+ and the `chrome://flags/#enable-web-bluetooth` flag
+
+## Base Station GATT Profile (Lighthouse V2 — LHB-* devices)
+
+| Item | Value |
+|---|---|
+| Service UUID | `00001523-1212-efde-1523-785feabcd124` |
+| Power characteristic | `00001525-1212-efde-1523-785feabcd124` |
+| Identify characteristic | `00008421-1212-efde-1523-785feabcd124` |
+
+Power state byte values: `0x01` = On, `0x00` = Sleep, `0x02` = Standby
 
 ## Debugging
 - `navigator.bluetooth` is `undefined` → not Chrome, not HTTPS, or Bluetooth disabled
-- Device picker is empty → Bluetooth off, location permission denied, or no discoverable devices nearby
+- Device picker is empty → Bluetooth off, location permission denied (Android), or no discoverable devices nearby
 - `SecurityError` → page not in a secure context
+- Base station not appearing in picker → device may be asleep; wake it manually first
