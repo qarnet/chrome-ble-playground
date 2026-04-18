@@ -46,4 +46,4 @@ Power state byte values: `0x01` = On, `0x00` = Sleep, `0x02` = Standby
 - `navigator.bluetooth` is `undefined` → not Chrome, not HTTPS, or Bluetooth disabled
 - Device picker is empty → Bluetooth off, location permission denied (Android), or no discoverable devices nearby
 - `SecurityError` → page not in a secure context
-- Base station not appearing in picker → device may be asleep; wake it manually first
+- Base station not appearing in picker → the scanner filters by name prefix `LHB-`; ensure the device is powered on and actively advertising (motor spinning or status LED active). The Lighthouse service UUID is not advertised — filtering by service UUID would always return empty.

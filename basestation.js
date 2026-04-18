@@ -101,8 +101,8 @@ connectBtn.addEventListener('click', async () => {
 
   try {
     device = await navigator.bluetooth.requestDevice({
-      filters: [{ services: [SERVICE_UUID] }],
-      optionalServices: [IDENT_CHAR_UUID],
+      filters: [{ namePrefix: 'LHB-' }],
+      optionalServices: [SERVICE_UUID],
     });
 
     statusEl.textContent = 'Connecting\u2026';
