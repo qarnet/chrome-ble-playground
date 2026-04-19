@@ -13,34 +13,24 @@
   </nav>
 
   <h1>Base Station</h1>
-  <p id="status">Disconnected</p>
+
+  <section id="perm-status">
+    <div class="perm-row" id="perm-web-bt">
+      <span class="perm-label">Web Bluetooth</span>
+      <span class="perm-badge">—</span>
+    </div>
+    <div class="perm-row" id="perm-new-backend">
+      <span class="perm-label">New Permissions Backend</span>
+      <span class="perm-badge">—</span>
+      <span class="perm-hint" hidden>Enable at chrome://flags → #enable-web-bluetooth-new-permissions-backend</span>
+    </div>
+  </section>
 
   <div id="error"></div>
 
-  <div id="disconnected-view">
-    <button id="connect-btn">Connect to Base Station</button>
-  </div>
+  <button id="add-btn">+ Add Base Station</button>
 
-  <div id="connected-view" hidden>
-    <div class="device-card">
-      <div class="device-name" id="device-name"></div>
-      <div class="power-state-row">
-        <span class="label">Power state</span>
-        <span id="power-badge" class="badge">Unknown</span>
-      </div>
-    </div>
-
-    <div class="action-grid">
-      <button class="action-btn" id="btn-on">Power On</button>
-      <button class="action-btn" id="btn-standby">Standby</button>
-      <button class="action-btn" id="btn-sleep">Sleep</button>
-      <button class="action-btn" id="btn-calibration">Get Cal. Data</button>
-    </div>
-
-    <pre id="cal-data"></pre>
-
-    <button class="disconnect-btn" id="disconnect-btn">Disconnect</button>
-  </div>
+  <div id="device-list"></div>
 
   <script src="basestation.js"></script>
 </body>
