@@ -38,11 +38,11 @@ git push
 
 | Characteristic | UUID | Properties | Notes |
 |---|---|---|---|
-| Update-Power-State | `00008421-1212-efde-1523-785feabcd124` | WRITE | Accepts power commands |
-| Current-Power-State | `00001525-1212-efde-1523-785feabcd124` | READ, WRITE, NOTIFY | Reflects actual device state |
-| Unidentified | `00001524-1212-efde-1523-785feabcd124` | READ, WRITE, NOTIFY | Observed values: `0x00`, `0x02` — semantics unknown |
+| Current-Power-State | `00001525-1212-efde-1523-785feabcd124` | READ, WRITE, NOTIFY | Power state — write commands, read/notify reflects actual state |
+| Unidentified-Write | `00008421-1212-efde-1523-785feabcd124` | WRITE | Purpose unknown — not used |
+| Unidentified-State | `00001524-1212-efde-1523-785feabcd124` | READ, WRITE, NOTIFY | Observed values: `0x00`, `0x02` — semantics unknown |
 
-**Write values for Update-Power-State:**
+**Write values for Current-Power-State:**
 - `0x01` → Power On
 - `0x00` → Sleep
 - `0x02` → Standby

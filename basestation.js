@@ -1,6 +1,6 @@
 // Lighthouse V2 Service
 const LIGHTHOUSE_SERVICE_UUID    = '00001523-1212-efde-1523-785feabcd124';
-const UPDATE_POWER_STATE_UUID    = '00008421-1212-efde-1523-785feabcd124'; // WRITE only
+const UNIDENTIFIED_WRITE_UUID    = '00008421-1212-efde-1523-785feabcd124'; // WRITE only — purpose unknown
 const CURRENT_POWER_STATE_UUID   = '00001525-1212-efde-1523-785feabcd124'; // READ/WRITE/NOTIFY
 const UNIDENTIFIED_STATE_UUID    = '00001524-1212-efde-1523-785feabcd124'; // READ/WRITE/NOTIFY
 
@@ -24,8 +24,7 @@ const POWER_STATES = {
 };
 
 let device           = null;
-let updatePowerChar  = null;  // write commands here
-let currentPowerChar = null;  // read/subscribe state here
+let currentPowerChar = null;  // read/write/notify — power state and commands
 let calibChar        = null;
 
 // UI refs
@@ -107,7 +106,6 @@ function onDisconnected() {
     currentPowerChar.removeEventListener('characteristicvaluechanged', onPowerStateChanged);
   }
   device           = null;
-  updatePowerChar  = null;
   currentPowerChar = null;
   calibChar        = null;
   calDataEl.textContent = '';
@@ -133,7 +131,6 @@ connectBtn.addEventListener('click', async () => {
 
     // Lighthouse V2 service
     const lighthouseService = await server.getPrimaryService(LIGHTHOUSE_SERVICE_UUID);
-    updatePowerChar  = await lighthouseService.getCharacteristic(UPDATE_POWER_STATE_UUID);
     currentPowerChar = await lighthouseService.getCharacteristic(CURRENT_POWER_STATE_UUID);
 
     // Subscribe to power state notifications
