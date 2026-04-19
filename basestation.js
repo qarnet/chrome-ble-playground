@@ -75,7 +75,7 @@ async function writePower(bytes) {
   clearError();
   setActionsBusy(true);
   try {
-    await updatePowerChar.writeValueWithResponse(bytes);
+    await currentPowerChar.writeValueWithResponse(bytes);
   } catch (err) {
     showError(`Write failed: ${err.message}`);
   } finally {
@@ -184,7 +184,7 @@ if (!navigator.bluetooth) {
   connectBtn.disabled = true;
   showError(
     'Web Bluetooth is not available. ' +
-    'Use Chrome on Android or Chrome on desktop (Windows, macOS, Linux) ' +
+    'Use Google Chrome (not Chromium) on Android or desktop (Windows, macOS, Linux) ' +
     'over HTTPS with Bluetooth enabled.'
   );
 }
