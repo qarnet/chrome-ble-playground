@@ -181,7 +181,7 @@ if (!navigator.bluetooth) {
   connectBtn.disabled = true;
   showError(
     'Web Bluetooth is not available. ' +
-    'Use Google Chrome (not Chromium) on Android or desktop (Windows, macOS, Linux) ' +
-    'over HTTPS with Bluetooth enabled.'
+    'Requires Google Chrome (not Chromium) over HTTPS with Bluetooth enabled. ' +
+    'On Linux, also enable it at chrome://flags → search "Web Bluetooth".'
   );
 }

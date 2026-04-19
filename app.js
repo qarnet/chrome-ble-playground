@@ -42,9 +42,8 @@ window.addEventListener('DOMContentLoaded', () => {
     btn.disabled = true;
     showError(
       'Web Bluetooth is not available. ' +
-      'Use Google Chrome (not Chromium) on Android or desktop (Windows, macOS, Linux), ' +
-      'make sure the site is served over HTTPS, ' +
-      'and that Bluetooth is enabled on your device.'
+      'Requires Google Chrome (not Chromium) over HTTPS with Bluetooth enabled. ' +
+      'On Linux, also enable it at chrome://flags → search "Web Bluetooth".'
     );
   }
 });

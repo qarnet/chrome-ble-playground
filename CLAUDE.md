@@ -30,7 +30,7 @@ git push
 - Supported in Chrome on Android and Chrome on desktop (Windows, macOS, Linux)
 - Not supported in Firefox or Safari
 - Android Chrome requires location permission for BLE scanning (OS requirement)
-- Linux desktop requires BlueZ 5.40+
+- Linux desktop requires BlueZ 5.40+ and enabling the flag at `chrome://flags` → search "Web Bluetooth"
 
 ## Base Station GATT Profile (Lighthouse V2 — LHB-* devices)
 
