@@ -42,7 +42,8 @@ window.addEventListener('DOMContentLoaded', () => {
     btn.disabled = true;
     showError(
       'Web Bluetooth is not available. ' +
-      'Use Chrome on Android, make sure the site is served over HTTPS, ' +
+      'Use Chrome on Android or Chrome on desktop (Windows, macOS, Linux), ' +
+      'make sure the site is served over HTTPS, ' +
       'and that Bluetooth is enabled on your device.'
     );
   }

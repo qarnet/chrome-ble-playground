@@ -27,20 +27,49 @@ git push
 
 ## Web Bluetooth Notes
 - Requires a secure context (HTTPS) — unavailable on `http://` or `file://`
-- Supported in Chrome on Android and Chrome on desktop (Windows, Mac, Linux)
+- Supported in Chrome on Android and Chrome on desktop (Windows, macOS, Linux)
 - Not supported in Firefox or Safari
 - Android Chrome requires location permission for BLE scanning (OS requirement)
-- Linux desktop requires BlueZ 5.40+ and the `chrome://flags/#enable-web-bluetooth` flag
+- Linux desktop requires BlueZ 5.40+
 
 ## Base Station GATT Profile (Lighthouse V2 — LHB-* devices)
 
-| Item | Value |
-|---|---|
-| Service UUID | `00001523-1212-efde-1523-785feabcd124` |
-| Power characteristic | `00001525-1212-efde-1523-785feabcd124` |
-| Identify characteristic | `00008421-1212-efde-1523-785feabcd124` |
+### Lighthouse V2 Service — `00001523-1212-efde-1523-785feabcd124`
 
-Power state byte values: `0x01` = On, `0x00` = Sleep, `0x02` = Standby
+| Characteristic | UUID | Properties | Notes |
+|---|---|---|---|
+| Update-Power-State | `00008421-1212-efde-1523-785feabcd124` | WRITE | Accepts power commands |
+| Current-Power-State | `00001525-1212-efde-1523-785feabcd124` | READ, WRITE, NOTIFY | Reflects actual device state |
+| Unidentified | `00001524-1212-efde-1523-785feabcd124` | READ, WRITE, NOTIFY | Observed values: `0x00`, `0x02` — semantics unknown |
+
+**Write values for Update-Power-State:**
+- `0x01` → Power On
+- `0x00` → Sleep
+- `0x02` → Standby
+
+**Read/notification values for Current-Power-State:**
+- `0x00` → Sleep
+- `0x01` → Booting (transient)
+- `0x02` → Standby
+- `0x08` → Waking (transient)
+- `0x09` → Powering On (transient, ~seconds while spinning up from sleep)
+- `0x0B` → On
+
+### Calibration Service — `00000000-0060-7990-5544-1cce81af42f0`
+
+| Characteristic | UUID | Properties | Notes |
+|---|---|---|---|
+| Calibration Data | `00000010-0060-7990-5544-1cce81af42f0` | READ | Raw calibration byte array, variable length |
+
+### Secure DFU Service — `0xFE59`
+
+Nordic Semiconductor proprietary DFU service.
+Spec: https://docs.nordicsemi.com/bundle/sdk_nrf5_v17.1.0/page/lib_dfu_transport_ble.html
+
+### Device Information Service — `0x180A`
+
+Bluetooth SIG standard service (Assigned Number `0x180A`).
+Spec: https://www.bluetooth.com/specifications/assigned-numbers/ (GATT Services section)
 
 ## Debugging
 - `navigator.bluetooth` is `undefined` → not Chrome, not HTTPS, or Bluetooth disabled
